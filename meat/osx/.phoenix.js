@@ -222,9 +222,7 @@ function showHints (windows, prefix) {
 
   if (windows.length > HINT_CHARS.length) {
     var partitionSize = Math.floor(windows.length / HINT_CHARS.length);
-    var lists = _.toArray(_.groupBy(windows, function (win, k) {
-      return k % HINT_CHARS.length;
-    }));
+    let lists = Object.values(windows.reduce((acc, curVal, curIdx, arr, k = curIdx % HINT_CHARS.length) => ((acc[k] || acc[k] = []).push(curVal), acc), {}));
     for (var j = 0; j < HINT_CHARS.length; j++) {
       showHints(lists[j], prefix + HINT_CHARS[j]);
     }
